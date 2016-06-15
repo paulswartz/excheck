@@ -24,6 +24,10 @@ defmodule ExCheck do
   @doc "Starts the ExCheck application."
   def start do
     ExUnit.configure(formatters: [ExCheck.Formatter])
+    if function_exported?(ExUnit, :plural_rule, 2) do
+      # created in Elixir 1.3
+      ExUnit.plural_rule("property", "properties")
+    end
     Application.ensure_all_started(:excheck)
   end
 
